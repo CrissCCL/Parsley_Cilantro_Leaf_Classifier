@@ -72,10 +72,20 @@ For each segmented leaf:
 - Keep first `Kfft = 14` harmonics  
 - Normalize by DC component  
 
+Each leaf is represented by a 14-dimensional feature vector composed of the first 14 Fourier magnitude harmonics of the radial distance function.
+
+### Parsley radial descriptor
 <p align="center">
-  <img alt="radial_fourier_descr_parsley" src="https://github.com/user-attachments/assets/5232ebb2-53df-4081-be32-e65866d5d8ad" width="850">
+  <img alt="radial_fourier_descr_parsley" src="https://github.com/user-attachments/assets/5232ebb2-53df-4081-be32-e65866d5d8ad" width="600">
 </p>
 
+### Cilantro radial descriptor
+
+<p align="center">
+  <img alt="radial_fourier descr_cilantro" src="https://github.com/user-attachments/assets/d3d2a707-813e-4c1a-983d-5048940a5278" width="600">
+</p>
+
+The radial profiles and their truncated Fourier spectra show consistent structural differences between parsley and cilantro leaf shapes.
 
 This representation is:
 
@@ -84,7 +94,6 @@ This representation is:
 - Robust to local contour noise  
 - Scale-stabilized through DC normalization  
 
----
 
 # 🔎 End-to-End Pipeline Examples
 
@@ -96,12 +105,11 @@ Below are two real classification examples using the complete pipeline:
 4. Radial Fourier feature extraction  
 5. SVM prediction  
 
----
 
 ## Parsley Example
 
 <p align="center">
-  <img alt="parsley" src="https://github.com/user-attachments/assets/93c524cb-d038-4ae5-a264-7577ed9d1f68" width="850">
+  <img alt="parsley" src="https://github.com/user-attachments/assets/93c524cb-d038-4ae5-a264-7577ed9d1f68" width="600">
 </p>
 
 Final prediction: **PARSLEY**
@@ -110,7 +118,7 @@ Final prediction: **PARSLEY**
 ## Cilantro Example
 
 <p align="center">
-  <img alt="cilantro" src="https://github.com/user-attachments/assets/50fc94a6-5205-4440-95ba-dde7b7fd6b5e" width="850">
+  <img alt="cilantro" src="https://github.com/user-attachments/assets/50fc94a6-5205-4440-95ba-dde7b7fd6b5e" width="600">
 </p>
 
 Final prediction: **CILANTRO**
@@ -124,7 +132,6 @@ The robustness of the pipeline is achieved through:
 - Harmonic truncation (noise attenuation)  
 - SVM classification in the original feature space  
 
----
 
 # 📊 Feature Space Visualization
 
@@ -134,11 +141,11 @@ To analyze separability, radial Fourier features were projected onto a 2D PCA sp
   <img alt="svm and pca" src="https://github.com/user-attachments/assets/40783fa3-5c3b-4ce4-9aad-8b76b916f239" width="700">
 </p>
 
-The visualization shows a clear separation between classes in the reduced feature space.
+Binary class encoding used for training:
+- 0 → Parsley
+- 1 → Cilantro
 
-PCA is used only for visualization purposes.  
-The SVM classifier operates in the original 14-dimensional radial Fourier feature space.
-
+Although partial overlap exists in the 2D PCA projection, the SVM classifier operates in the original 14-dimensional radial Fourier feature space, where class separability improves.
 
 # 📈 Results
 
