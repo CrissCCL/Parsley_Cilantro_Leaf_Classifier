@@ -27,7 +27,6 @@ The baseline method was sensitive to:
 - Border noise  
 - Small holes inside the leaf region  
 
----
 
 ### 🔹 Improved approach (robust)
 
@@ -42,7 +41,21 @@ To overcome these issues, the final solution includes:
 
 This significantly improves robustness against translation, rotation and segmentation artifacts.
 
----
+
+# 🧩 Design Decisions
+
+- Radial sampling was chosen over contour-based descriptors to avoid sensitivity to contour ordering.
+- FFT truncation (Kfft = 14) acts as a shape low-pass filter.
+- Magnitude spectrum ensures rotation invariance.
+- DC normalization improves scale robustness.
+- Manual ROI simplifies background variability for controlled experimentation.
+
+# ⚠️ Limitations
+
+- Manual ROI selection is required.
+- Performance may degrade under extreme lighting variations.
+- PCA projection shows partial class overlap in 2D visualization.
+- Dataset size is limited to controlled acquisition conditions.
 
 # 🧠 Methodology
 
@@ -51,7 +64,6 @@ This significantly improves robustness against translation, rotation and segment
 Green enhancement using:
 
 Sg = G - (R+G+B)/3
-
 
 Followed by:
 
@@ -133,6 +145,26 @@ The robustness of the pipeline is achieved through:
 - SVM classification in the original feature space  
 
 
+### 📐 Mathematical Formulation
+
+Let $$r(\theta)$$ be the radial distance function sampled at $$N_{ang}$$ angular positions around the leaf centroid.
+
+The discrete Fourier transform is defined as:
+
+$$
+R(k) = \sum_{n=0}^{N_{ang}-1} r(\theta_n) e^{-j 2\pi kn / N_{ang}}
+$$
+
+The truncated radial Fourier descriptor is:
+
+$$
+F = \left[ |R(1)|, |R(2)|, \dots, |R(K_{fft})| \right]
+$$
+
+Each leaf is therefore represented as a point in a \( K_{fft} \)-dimensional feature space (here \( K_{fft} = 14 \)).
+
+
+
 # 📊 Feature Space Visualization
 
 To analyze separability, radial Fourier features were projected onto a 2D PCA space.
@@ -199,6 +231,9 @@ main.m
 - Image Processing Toolbox
 - Statistics and Machine Learning Toolbox
 
-## 📜 License
+## 🤝 Support projects
+ Support me on Patreon [https://www.patreon.com/c/CrissCCL](https://www.patreon.com/c/CrissCCL)
 
-MIT License.
+## 📜 License
+MIT License  
+
