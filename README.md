@@ -117,6 +117,15 @@ where $$K_{fft} = 14$$.
 
 > The value Kfft = 14 was selected empirically after evaluating classification accuracy as a function of harmonic truncation.
 
+### Performance Comparison Under Different Dataset Conditions
+
+| Descriptor Method                    | Dataset Condition | 5-Fold CV Accuracy |
+|--------------------------------------|------------------|-------------------|
+| Classical Contour Fourier Descriptor | Raw Dataset      | 58–65% |
+| Radial Fourier + SVM                 | Raw Dataset      | 75% |
+| Radial Fourier + SVM                 | Refined Dataset  | **90.71%** |
+
+The results highlight the impact of dataset preprocessing quality on classifier performance, particularly for shape-based descriptors.
 
 # 🔎 End-to-End Pipeline Examples
 
@@ -178,12 +187,7 @@ Although partial overlap exists in the 2D PCA projection, the SVM decision bound
 </p>
 
 
-### Performance Comparison
 
-| Method                              | Cross-Validation Accuracy | Observations |
-|-------------------------------------|---------------------------|--------------|
-| Contour-Based Fourier Descriptor    | 58%                       | Sensitive to rotation, centroid shift and border noise |
-| Radial Fourier Descriptor + SVM     | 90.71%                    | Improved robustness to translation, rotation and segmentation artifacts |
 # 🧩 Design Decisions
 
 - Radial sampling avoids contour ordering sensitivity  
