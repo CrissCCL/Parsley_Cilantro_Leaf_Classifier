@@ -161,7 +161,7 @@ $$
 F = \left[ |R(1)|, |R(2)|, \dots, |R(K_{fft})| \right]
 $$
 
-Each leaf is therefore represented as a point in a \( K_{fft} \)-dimensional feature space (here \( K_{fft} = 14 \)).
+Each leaf is therefore represented as a point in a $$K_{fft}$$-dimensional feature space (here $$K_{fft} = 14$$).
 
 
 
