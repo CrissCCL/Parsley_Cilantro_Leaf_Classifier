@@ -186,6 +186,17 @@ Although partial overlap exists in the 2D PCA projection, the SVM decision bound
   <img alt="confusion" src="https://github.com/user-attachments/assets/f734fa46-add1-4910-8578-aff5dbdfd2da" width="500">
 </p>
 
+# 📊 Results
+
+### Dataset Description
+
+The dataset consists of:
+- 50 parsley leaf samples  
+- 50 cilantro leaf samples  
+
+All samples were manually labeled and acquired under controlled background and lighting conditions.
+
+5-fold cross-validation was performed over the complete dataset (100 samples).
 
 
 # 🧩 Design Decisions
