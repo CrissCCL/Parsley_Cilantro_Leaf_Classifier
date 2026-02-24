@@ -40,6 +40,15 @@ To overcome these issues, the final solution includes:
 This improves robustness against translation, rotation and segmentation artifacts.
 
 
+## 📂 Contents
+
+- `main.m` → Main demo script (ROI selection + classification pipeline)
+- `segment_green_minus_gray.m` → Green channel segmentation and morphological refinement
+- `radial_fourier_descriptor.m` → Radial Fourier feature extraction
+- `model_green_svm.mat` → Trained SVM classification model
+- `test images` → Example parsley and cilantro images
+
+
 # 🧠 Methodology
 
 ## 1️⃣ Green Segmentation
