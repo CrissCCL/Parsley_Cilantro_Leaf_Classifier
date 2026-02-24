@@ -115,6 +115,8 @@ $$
 
 where $$K_{fft} = 14$$.
 
+> The value Kfft = 14 was selected empirically after evaluating classification accuracy as a function of harmonic truncation.
+
 
 # 🔎 End-to-End Pipeline Examples
 
@@ -157,7 +159,7 @@ Binary encoding used for training:
 - 1 → Cilantro  
 
 Although partial overlap exists in the 2D PCA projection, the SVM decision boundary is learned in the original 14-dimensional feature space.
-
+> PCA is used for visualization only and does not represent the true decision boundary, which is learned in the full feature space.
 ---
 
 # 📈 Results
@@ -176,6 +178,12 @@ Although partial overlap exists in the 2D PCA projection, the SVM decision bound
 </p>
 
 
+### Performance Comparison
+
+| Method                              | Cross-Validation Accuracy | Observations |
+|-------------------------------------|---------------------------|--------------|
+| Contour-Based Fourier Descriptor    | 58%                       | Sensitive to rotation, centroid shift and border noise |
+| Radial Fourier Descriptor + SVM     | 90.71%                    | Improved robustness to translation, rotation and segmentation artifacts |
 # 🧩 Design Decisions
 
 - Radial sampling avoids contour ordering sensitivity  
