@@ -1,102 +1,127 @@
-# 🌿 Parsley vs Cilantro Leaf Classifier (MATLAB)
+# 🌿 Radial Fourier Leaf Classifier (MATLAB)
 
-![MATLAB](https://img.shields.io/badge/MATLAB-Code-orange)
-![Computer Vision](https://img.shields.io/badge/Computer%20Vision-Image%20Processing-blue)
-![ML](https://img.shields.io/badge/Machine%20Learning-SVM-green)
-![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)
+![MATLAB](https://img.shields.io/badge/MATLAB-Image%20Processing-orange)
+![Computer Vision](https://img.shields.io/badge/Computer%20Vision-Fourier%20Descriptors-blue)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-SVM-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-> Classical computer vision pipeline for **parsley vs cilantro** leaf classification.
-> Includes a baseline approach and an improved, more robust method based on **green segmentation** + **radial Fourier descriptor** + **SVM**.
-
-<p align="center">
-  <img src="assets/banner_pipeline.png" width="900">
-</p>
+> Shape-based leaf classification using **green segmentation** and a **radial Fourier descriptor**.
+> Case study: Parsley vs Cilantro.
 
 ---
 
-## ✨ Overview
+## 📌 Overview
 
-This project started with a white-background binarization pipeline using morphological operations and a contour-based Fourier descriptor with a linear classifier.
+This project implements and compares two classical computer vision pipelines for leaf classification.
 
-However, the baseline was sensitive to:
-- centroid shift (translation)
-- orientation (rotation)
-- border noise
-- small holes
-
-To address these issues, the improved pipeline performs **green-based segmentation** and extracts a **radial Fourier descriptor**, then trains a **Support Vector Machine (SVM)** classifier.
-
----
-
-## 🧠 Methods
-
-### 1) Baseline pipeline
+### 🔹 Baseline approach
 - White background binarization
-- Morphological cleanup (open/close/fill)
-- Contour extraction
-- Fourier descriptor (contour-based)
+- Morphological cleanup
+- Contour-based Fourier descriptor
 - Linear classifier
 
-<p align="center">
-  <img src="assets/baseline_binarization_steps.png" width="900">
-</p>
+The baseline method was sensitive to:
+- Centroid displacement (translation)
+- Rotation
+- Border noise
+- Small holes inside the leaf region
 
-### 2) Improved pipeline (robust)
-- Green segmentation (ExG / HSV / normalized G)
-- Morphological cleanup
-- Radial function sampling `r(θ)` (e.g., `Nang = 360`)
-- FFT of `r(θ)` → keep first harmonics (e.g., `Kfft = 14`)
+---
+
+### 🔹 Improved approach (robust)
+
+To overcome these issues, the final solution includes:
+
+- Green-based segmentation (`Green - Gray`)
+- Morphological refinement
+- Radial sampling `r(θ)` from the centroid
+- FFT of the radial function
+- Harmonic selection (`Kfft`)
 - SVM classifier
 
-<p align="center">
-  <img src="assets/green_segmentation_steps.png" width="900">
-</p>
+This significantly improves robustness against translation, rotation and segmentation artifacts.
+
+---
+
+## 🧠 Methodology
+
+### 1️⃣ Green Segmentation
+
+Green enhancement using:
+Sg = G - (R+G+B)/3
+
+
+Followed by:
+- Otsu thresholding
+- Hole filling
+- Small-object removal
+- Largest connected component selection
 
 <p align="center">
-  <img src="assets/radial_fourier_descriptor.png" width="900">
+  <img src="assets/green_segmentation_steps.png" width="850">
 </p>
+
+---
+
+### 2️⃣ Radial Fourier Descriptor
+
+For each segmented leaf:
+
+- Compute centroid
+- Sample radial distances `r(θ)` with `Nang = 360`
+- Apply FFT
+- Keep first `Kfft = 14` harmonics
+- Normalize by DC component
+
+<p align="center">
+  <img src="assets/radial_fourier_descriptor.png" width="850">
+</p>
+
+This representation is:
+
+- Translation invariant (centroid-based)
+- Rotation invariant (magnitude spectrum)
+- More robust to local contour noise
 
 ---
 
 ## 📊 Results
 
-Best configuration example:
-- `Nang = 360`
-- `Kfft = 14`
-- `Box = 5`
-- `Accuracy (5-fold CV) = 90.71%`
-- `TP=63, TN=64, FP=6, FN=7`
+Best configuration:
+
+| Parameter | Value |
+|------------|--------|
+| Nang       | 360    |
+| Kfft       | 14     |
+| Morph box  | 5      |
+| CV folds   | 5      |
+
+**Cross-validation accuracy: 90.71%**
+
+Confusion matrix example:
 
 <p align="center">
-  <img src="assets/svm_confusion_matrix.png" width="550">
+  <img alt="confusion" src="https://github.com/user-attachments/assets/6c490241-7467-4443-bdfd-c822d55151d8" width="500">
 </p>
-
----
 
 ## 🚀 How to Run
 
-### 1) Dataset
+### 1️⃣ Demo classification (manual ROI)
 
-Place images into:
+```matlab
+scripts/01_demo_classify_roi
+```
+2️⃣ Train improved SVM model
 
-data/raw/cilantro/
-data/raw/parsley/
-
-Or use the small demo dataset in data/sample/ (if included).
-
-### 2) Run baseline
-scripts/02_train_baseline
-### 3) Run improved SVM pipeline
 scripts/03_train_improved_svm
-### 4) Generate README figures
 
-scripts/04_make_readme_figures
 
-## ✅ Requirements
+## 🔬 Requirements
 
 - MATLAB
-
 - Image Processing Toolbox
-
 - Statistics and Machine Learning Toolbox
 
+## 📜 License
+
+MIT License.
