@@ -73,8 +73,9 @@ For each segmented leaf:
 - Normalize by DC component  
 
 <p align="center">
-  <img src="assets/radial_fourier_descriptor.png" width="850">
+  <img alt="radial_fourier_descr_parsley" src="https://github.com/user-attachments/assets/5232ebb2-53df-4081-be32-e65866d5d8ad" width="850">
 </p>
+
 
 This representation is:
 
@@ -100,22 +101,20 @@ Below are two real classification examples using the complete pipeline:
 ## Parsley Example
 
 <p align="center">
-  <img src="assets/green_segmentation_steps_parsley.png" width="850">
+  <img alt="parsley" src="https://github.com/user-attachments/assets/93c524cb-d038-4ae5-a264-7577ed9d1f68" width="850">
 </p>
 
 Final prediction: **PARSLEY**
 
----
 
 ## Cilantro Example
 
 <p align="center">
-  <img src="assets/green_segmentation_steps_cilantro.png" width="850">
+  <img alt="cilantro" src="https://github.com/user-attachments/assets/50fc94a6-5205-4440-95ba-dde7b7fd6b5e" width="850">
 </p>
 
 Final prediction: **CILANTRO**
 
----
 
 The robustness of the pipeline is achieved through:
 
@@ -132,7 +131,7 @@ The robustness of the pipeline is achieved through:
 To analyze separability, radial Fourier features were projected onto a 2D PCA space.
 
 <p align="center">
-  <img src="assets/svm_pca_feature_space.png" width="700">
+  <img alt="svm and pca" src="https://github.com/user-attachments/assets/40783fa3-5c3b-4ce4-9aad-8b76b916f239" width="700">
 </p>
 
 The visualization shows a clear separation between classes in the reduced feature space.
@@ -140,7 +139,6 @@ The visualization shows a clear separation between classes in the reduced featur
 PCA is used only for visualization purposes.  
 The SVM classifier operates in the original 14-dimensional radial Fourier feature space.
 
----
 
 # 📈 Results
 
@@ -158,10 +156,9 @@ Best configuration:
 The improved radial descriptor significantly outperformed the baseline contour-based descriptor in robustness to centroid shift and border noise.
 
 <p align="center">
-  <img src="assets/svm_confusion_matrix.png" width="500">
+  <img alt="confusion" src="https://github.com/user-attachments/assets/f734fa46-add1-4910-8578-aff5dbdfd2da" width="500">
 </p>
 
----
 
 # ⚙️ Engineering Notes
 
